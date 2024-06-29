@@ -1,0 +1,89 @@
+cabal-version: 3.0
+name: opendota
+version: 0.1.0.0
+license: NONE
+build-type: Simple
+
+extra-doc-files:
+  CHANGELOG.md
+
+common warnings
+  ghc-options: -Wall -Wextra -Wcompat
+
+common language
+  default-language: GHC2021
+  default-extensions:
+    BlockArguments
+    DataKinds
+    DerivingStrategies
+    DerivingVia
+    DuplicateRecordFields
+    LambdaCase
+    OverloadedLabels
+    OverloadedRecordDot
+    OverloadedStrings
+    RecordWildCards
+    TypeFamilies
+
+library
+  import: warnings
+  import: language
+
+  hs-source-dirs: src
+
+  build-depends:
+    base >=4.14.0.0 && <5,
+    aeson,
+    containers,
+    fmt,
+    http-api-data,
+    http-client-tls,
+    megaparsec,
+    servant,
+    servant-client,
+    servant-client-core,
+    streaming,
+    text,
+    time,
+
+  exposed-modules:
+    OpenDota
+    OpenDota.API
+    OpenDota.StringEncodedIntegral
+    OpenDota.Types
+    OpenDota.Types.PlayerColor
+    OpenDota.Types.PlayerSlot
+
+test-suite opendota-spec
+  import: warnings
+  import: language
+
+  type: exitcode-stdio-1.0
+  hs-source-dirs: spec
+  main-is: Main.hs
+
+  other-modules:
+    OpenDotaSpec
+    OpenDota.Hedgehog
+    OpenDota.TypesSpec
+    OpenDota.StringEncodedIntegralSpec
+    RunVCRClient
+
+  build-tool-depends:
+    hspec-discover:hspec-discover,
+
+  build-depends:
+    base >=4.14.0.0 && <5,
+    opendota,
+    aeson,
+    bytestring,
+    hedgehog,
+    hspec,
+    hspec-hedgehog,
+    http-client-tls,
+    http-types,
+    servant-client,
+    servant-client-core,
+    text,
+    time,
+    transformers,
