@@ -5,7 +5,7 @@ import Hedgehog
 import qualified Hedgehog.Gen as Gen
 import qualified Hedgehog.Range as Range
 
-import OpenDota.Types hiding (matchID)
+import OpenDota.Types
 
 matchID :: MonadGen m => m MatchID
 matchID = MatchID <$> Gen.enumBounded
